@@ -1,8 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import xml.etree.ElementTree as ET
 import os
-from xml.dom import minidom
-
-
+#from xml.dom import minidom
 
 def indent(elem, level=0):
   i = "\n" + level*"  "
@@ -19,20 +19,24 @@ def indent(elem, level=0):
     if level and (not elem.tail or not elem.tail.strip()):
       elem.tail = i
 
-xml_file = os.path.abspath=('/Users/Jack/Dropbox/Tutorials/python/\
-data structure and algorigthm in python source code/icndb.xml')
+#xml_file = os.path.abspath('/Users/Jack/Dropbox/Tutorials/python/data structure and algorigthm in python source code/icndb.xml')
+xml_file = os.path.abspath("/Users/Jack/Dropbox/Tutorials/python/datastructureinpython/icndb.xml")
+#if os.path.isdir(xml_file):
+#    print "yes"
+#    for i in os.listdir(xml_file):
+#        print i
 
+# create a services root
 services = ET.Element('services')
 
-comment = ET.Comment('Gerenate for icndb')
-
-services.append(comment)
+# create comment and append to it
+#comment = ET.Comment('Gerenate for icndb')
+#services.append(comment)
 
 service = ET.SubElement(services, 'service', id='0')
-#service.set('id', '0')
-name = ET.SubElement(service, 'name')
+name = ET.SubElement(service, 'name', format='vfsr-xxx')
 name.text = 'vfsr-conference'
-virtual_machines = ET.SubElement(service, 'virtual machines')
+virtual_machines = ET.SubElement(service, 'virtual_machines')
 type = ET.SubElement(service, 'type')
 type.text = 'conference'
 prefix = ET.SubElement(service, 'prefix')
@@ -42,16 +46,53 @@ min_clients.text = str(120)
 max_clients = ET.SubElement(service, 'max_clients')
 max_clients.text = str(200)
 
+
+#create VM list
 list=[ET.Element('VM') for i in xrange(3)]
 for vm in list:
     ip = ET.SubElement(vm, 'ip')
-    name = ET.SubElement(vm, 'name')
+    vm_name = ET.SubElement(vm, 'vm_name')
+    zone = ET.SubElement(vm, 'zone')
     ip.text = 'ip'
-    name.text = 'name'
-    
+    vm_name.text = 'name'
+    zone.text = 'zone-1'
+
+# extend vm list to virtual_machines    
 virtual_machines.extend(list)
 
+# insert the indent
 indent(services)
 
+# create ET instance
 tree = ET.ElementTree(services)
-tree.write(xml_file, xml_declaration=True, encoding='utf-8', method="xml"
+
+#write to files
+#tree.write(xml_file, xml_declaration=True, encoding='utf-8', method="xml")
+tree.write(xml_file)
+# print to screen
+print ET.tostring(services)
+#tree.write(sys.stdout)
+
+tree = ET.parse(xml_file)
+services = tree.getroot()
+for child in services:
+    print child.tag, child.attrib
+
+
+for service in services.findall('service'):
+    id = service.get('id')
+    name = service.find('name').text
+    #virtual_machines = service.find('virtual_machines').text
+    for virtual_machine in service.findall('virtual_machines'):
+        for vm in virtual_machines.findall('VM'):
+            ip = vm.find('ip').text
+            vm_name = vm.find('vm_name').text
+            zone = vm.find('zone').text
+            print ip, vm_name, zone
+    type = service.find('type').text
+    prefix = service.find('prefix').text
+    min_clients = service.find('min_clients').text
+    max_clients = service.find('max_clients').text
+    print id, name, type, prefix, min_clients, max_clients
+
+
