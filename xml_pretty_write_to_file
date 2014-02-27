@@ -1,0 +1,57 @@
+import xml.etree.ElementTree as ET
+import os
+from xml.dom import minidom
+
+
+
+def indent(elem, level=0):
+  i = "\n" + level*"  "
+  if len(elem):
+    if not elem.text or not elem.text.strip():
+      elem.text = i + "  "
+    if not elem.tail or not elem.tail.strip():
+      elem.tail = i
+    for elem in elem:
+      indent(elem, level+1)
+    if not elem.tail or not elem.tail.strip():
+      elem.tail = i
+  else:
+    if level and (not elem.tail or not elem.tail.strip()):
+      elem.tail = i
+
+xml_file = os.path.abspath=('/Users/Jack/Dropbox/Tutorials/python/\
+data structure and algorigthm in python source code/icndb.xml')
+
+services = ET.Element('services')
+
+comment = ET.Comment('Gerenate for icndb')
+
+services.append(comment)
+
+service = ET.SubElement(services, 'service', id='0')
+#service.set('id', '0')
+name = ET.SubElement(service, 'name')
+name.text = 'vfsr-conference'
+virtual_machines = ET.SubElement(service, 'virtual machines')
+type = ET.SubElement(service, 'type')
+type.text = 'conference'
+prefix = ET.SubElement(service, 'prefix')
+prefix.text = 'ccnx:/cona/chat-room/huawei'
+min_clients = ET.SubElement(service, 'min_clients')
+min_clients.text = str(120)
+max_clients = ET.SubElement(service, 'max_clients')
+max_clients.text = str(200)
+
+list=[ET.Element('VM') for i in xrange(3)]
+for vm in list:
+    ip = ET.SubElement(vm, 'ip')
+    name = ET.SubElement(vm, 'name')
+    ip.text = 'ip'
+    name.text = 'name'
+    
+virtual_machines.extend(list)
+
+indent(services)
+
+tree = ET.ElementTree(services)
+tree.write(xml_file, xml_declaration=True, encoding='utf-8', method="xml"
