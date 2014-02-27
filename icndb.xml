@@ -5,14 +5,17 @@
       <VM>
         <ip>ip-1</ip>
         <vm_name>name-1</vm_name>
+        <zone>zone-1</zone>
       </VM>
       <VM>
         <ip>ip-2</ip>
         <vm_name>name-2</vm_name>
+        <zone>zone-1</zone>
       </VM>
       <VM>
         <ip>ip-3</ip>
         <vm_name>name-3</vm_name>
+        <zone>zone-1</zone>
       </VM>
     </virtual_machines>
     <type>conference</type>
@@ -20,21 +23,23 @@
     <min_clients>120</min_clients>
     <max_clients>200</max_clients>
   </service>
-    
   <service id="2">
     <name format="vfsr-xxx">vfsr-conference</name>
     <virtual_machines>
       <VM>
         <ip>ip-4</ip>
         <vm_name>name-4</vm_name>
+        <zone>zone-2</zone>
       </VM>
       <VM>
         <ip>ip-5</ip>
         <vm_name>name-5</vm_name>
+        <zone>zone-2</zone>
       </VM>
       <VM>
         <ip>ip-6</ip>
         <vm_name>name-6</vm_name>
+        <zone>zone-2</zone>
       </VM>
     </virtual_machines>
     <type>conference</type>
