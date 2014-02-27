@@ -20,7 +20,8 @@ for service in services.findall('service'):
             for vm in virtual_machine.findall('VM'):
                 ip = vm.find('ip').text
                 vm_name = vm.find('vm_name').text
-                print ip, vm_name
+                zone = vm.find('zone').text
+                print ip, vm_name, text
         type = service.find('type').text
         prefix = service.find('prefix').text
         min_clients = service.find('min_clients').text
@@ -31,7 +32,8 @@ for service in services.findall('service'):
 for vm in services.iter('VM'):
     ip = vm.find('ip').text
     vm_name = vm.find('vm_name').text
-    print ip, vm_name
+    zone = vm.find('zone').text
+    print ip, vm_name, zone
 
 
 # find all the service tag
