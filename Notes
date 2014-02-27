@@ -167,6 +167,15 @@ example to bring another NIC for VM
 9. 
 
 
+nova aggregate-list:
+	(.venv)cona@cona-ProLiant-DL180-G6-ctl-12:~/test/horizon/openstack_dashboard/api$ nova aggregate-list
+	+----+-------------+-------------------+
+	| Id | Name        | Availability Zone |
+	+----+-------------+-------------------+
+	| 4  | aggregate-1 | zone-1            |
+	| 6  | aggregate-2 | zone-2            |
+	+----+-------------+-------------------+
+	
 nova aggregate: (set up at controller 146)
 	nova aggregate-create aggregate-1 zone-1
 	nova aggregate-add-host aggregate-1 cona-proliant-dl380-g6-comp2-4
